@@ -10,3 +10,12 @@
 # Игнорировать временные файлы
 *.tmp
 *.log
+
+# 
+*.gcda
+*.gcno
+*.gcov
+coverage.info
+coverage_html/
+music_shop_tests
+.DS_Store
