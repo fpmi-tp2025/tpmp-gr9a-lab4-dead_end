@@ -6,5 +6,5 @@ App can be installed locally using console. Firstly, open necessary directory wi
 # Usage
 You can log in the system as a customer or administrator. As a customer, you can write your name and find certain information you asked about, if you have an access. As an administrator, you must log in with your personal login and password to manage trades' data. 
 # Contributing
-- [Aleinik Katya](https://github.com/AleinikK666): **team leader**, Programming, Tech Writing, Designer
+- [Aleinik Katya](https://github.com/AleinikK666): **team leader**, Programming developer, Tech Writing, Chief Designer
 - [Lera  Evtukhovich](https://github.com/Lerka2117): Database developer, QA,  Tech Writing
