@@ -1,0 +1,33 @@
+CC = gcc
+CFLAGS = -Iinclude -Wall -fprofile-arcs -ftest-coverage
+LDFLAGS = -lsqlite3
+TEST_SRC_DIR = src
+TEST_BIN_DIR = bin
+TEST_OBJ_DIR = obj_tests
+
+TESTS = $(TEST_BIN_DIR)/music_shop_tests
+
+all: test
+
+test: $(TESTS)
+	$(TEST_BIN_DIR)/music_shop_tests
+
+$(TEST_BIN_DIR)/music_shop_tests: $(TEST_OBJ_DIR)/music_shop_tests.o $(TEST_OBJ_DIR)/MusicShopDB.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+
+$(TEST_OBJ_DIR)/music_shop_tests.o: $(TEST_SRC_DIR)/music_shop_tests.c
+	mkdir -p $(TEST_OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(TEST_OBJ_DIR)/MusicShopDB.o: $(TEST_SRC_DIR)/MusicShopDB.c include/MusicShopDB.h
+	mkdir -p $(TEST_OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+coverage: test
+	lcov --capture --directory $(TEST_OBJ_DIR) --output-file coverage.info
+	genhtml coverage.info --output-directory coverage_html
+
+clean:
+	rm -rf $(TEST_OBJ_DIR) $(TEST_BIN_DIR)/music_shop_tests coverage_html coverage.info
+
+.PHONY: all test coverage clean
