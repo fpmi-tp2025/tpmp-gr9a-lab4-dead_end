@@ -1,10 +1,16 @@
-name: CI Tests
+name: CI Tests and Coverage
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
 
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
+    env:
+      BUILD_DIR: ./src
     
     steps:
     - uses: actions/checkout@v4
@@ -12,15 +18,22 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y gcc sqlite3 lcov
+        sudo apt-get install -y gcc sqlite3 lcov gcovr
         
-    - name: Build and run tests
+    - name: Compile and run tests
       run: |
-        make -f Makefile.test test
-        make -f Makefile.test coverage
+        cd ${{ env.BUILD_DIR }}
+        gcc -I../include -fprofile-arcs -ftest-coverage -o music_shop_tests music_shop_tests.c MusicShopDB.c -lsqlite3 -Wall
+        ./music_shop_tests
+        
+    - name: Generate coverage report
+      run: |
+        cd ${{ env.BUILD_DIR }}
+        lcov --capture --directory . --output-file coverage.info --rc lcov_branch_coverage=1
+        genhtml coverage.info --output-directory coverage_html --branch-coverage
         
     - name: Upload coverage report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: coverage-report
-        path: coverage_html
+        path: ${{ env.BUILD_DIR }}/coverage_html
