@@ -1,21 +1,15 @@
-# Игнорировать исполняемые файлы
-*.exe
-*.out
-*.app
+# Бинарные файлы
+bin/
+obj/
+obj_tests/
 
-# Игнорировать объектные файлы
-*.o
-*.obj
-
-# Игнорировать временные файлы
-*.tmp
-*.log
-
-# 
+# Файлы покрытия и временные файлы
 *.gcda
 *.gcno
 *.gcov
 coverage.info
 coverage_html/
+
+# Исполняемые файлы
+task
 music_shop_tests
-.DS_Store
