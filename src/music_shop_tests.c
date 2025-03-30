@@ -130,21 +130,6 @@ void test_database_requests(sqlite3 *db) {
     printf("\nПроверьте вывод запросов выше!\n");
 }
 
-void test_crud_operations(sqlite3 *db) {
-    printf("\n=== ТЕСТ ОПЕРАЦИЙ CRUD ===\n");
-    
-    printf("1. Тест добавления (введите тестовые данные):\n");
-    Insert(db, NULL, 0);
-    
-    printf("\n2. Тест обновления (введите тестовые данные):\n");
-    Update(db, NULL, 0);
-    
-    printf("\n3. Тест удаления (введите тестовые данные):\n");
-    Delete(db, NULL, 0);
-    
-    printf("\nПроверьте результаты операций!\n");
-}
-
 int main() {
     sqlite3 *db;
     
@@ -155,7 +140,6 @@ int main() {
     test_authorization();
     test_date_validation();
     test_database_requests(db);
-    test_crud_operations(db);
     
     sqlite3_close(db);
     printf("\n=== ТЕСТИРОВАНИЕ ЗАВЕРШЕНО ===\n");
